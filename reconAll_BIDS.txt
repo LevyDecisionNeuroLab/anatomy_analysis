@@ -1,0 +1,22 @@
+########################################################################################################################
+This file presentes two options of running the BIDS version of recon-all. 
+The advantage on the output of fmriPrep is that it takes session into considerations - so we can compare them later on. 
+The first section presents an option to run it using docker.
+The second options presents an option to run it after clonning the github repository (link: https://github.com/BIDS-Apps/freesurfer)
+To run the second option you'll need to install a few python packages (nibabel, nilearn, nipype etc.) - preferably creating a dedicated conda enviornment for that.
+
+The script calls for specific folder and subject numbet - you'll need to change that to match your own
+########################################################################################################################
+
+docker run -ti --rm \
+	-v /media/Data/kpe_forFmriPrep:/bids_dataset:ro \
+	-v /media/Data/KPE_fmriPrep_preproc/reconOutput:/outputs \
+	-v /home/or/Downloads/freesurferLicense/license.txt:/license.txt \
+	bids/freesurfer \
+	/bids_dataset /outputs participant --participant_label 1223 \
+	--license_file "/license.txt" \
+	--skip_bids_validator
+
+
+
+python run.py /media/Data/kpe_forFmriPrep /media/Data/KPE_fmriPrep_preproc/reconOutput participant --participant_label 1253 --skip_bids_validator --license_file /home/or/Downloads/freesurferLicense/license.txt
